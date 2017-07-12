@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <style type="text/css">
+    body, html,#allmap {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript"
+    src="http://api.map.baidu.com/api?v=2.0&amp;ak=IRLYepkYHoZV6EYCBPC5sLlWkqu1RgL7">
+    </script>
+    <script type="text/javascript"
+    src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js">
+    </script>
+    <script type="text/javascript"
+    src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js">
+    </script>
+    <style type="text/css">
+    *,html,body,div,ul,li,a{margin:0;padding:0;list-style:none;}
+    center.fontCenter{text-align:center;font-size: 20px;color:#3d1e95;margin:10px auto;}
+    .navi{width:100%;margin:10px auto 0;overflow: hidden;background-color:#5721a9;}
+    .navi li{width:20%;float:left;}
+    .navi li a{width:100%;height:28px;font-size:12px;text-align:center;color:#ccc;padding-top:10px; text-decoration: none; display:block;}
+    .navi li a:hover{color:#fff;}
+    .auto-style1 {
+    text-align: center;
+    }
+    #sides{
+    margin:0;
+    }
+    #left{
+    float:left;
+    width:75%;
+    overflow:hidden;
+    }
+    #right{
+    float:left;
+    width:25%;
+    overflow:hidden;
+    }
+    .calculated-width {
+    width: -webkit-calc(100% - 130px);
+    width:    -moz-calc(100% - 130px);
+    width:         calc(100% - 130px);
+    }​
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    </style>
+    <title>机器人控制</title>
+    <script type="text/javascript" src='js/roshandle.js'></script>
+    <script type="text/javascript" src='js/videohandle.js'> </script>
+    <script type="text/javascript" src='js/maphandle.js'> </script>
+  </head>
+  <body overflow:auto>
+    <script>
+    </script>
+    <div class="navi">
+      <ul>
+        <li><a href="index.html" target="_blank">主页</a></li>
+        <li><a href="map.html" target="_blank">地图</a></li>
+        <li><a href="interaction.html" target="_blank">交互</a></li>
+        <li><a href="control.html" target="_blank">控制</a></li>
+        <li><a href="config.html" target="_blank">配置</a></li>
+      </ul>
+    </div>
+    <div>
+      <center class="fontCenter">
+      机器人控制</center>
+    </div>
+  </body>
+  <div  style="height:100%;width:100%;">
+    <div id="allmap" style="float:left;height:100%;width:calc(100% - 130px);"></div>
+    <div id="control" style="text-align: top; float:right;height:100%;width:130px">
+      <div align="right" style="height:calc(100% - 130px);width:130px">
+        <table width="100%">
+          <caption>Robot Status</caption>
+          <col width="80">
+          <col width="50">
+          <tr  align = "left">
+            <th style="height:30px;" align="left">Name</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td style="height:20px;">Eanbled</td>
+            <td>1</td>
+          </tr>
+           <tr>
+            <td style="height:20px;">Moving</td>
+            <td>1</td>
+          </tr>
+           <tr>
+            <td style="height:20px;">Mission</td>
+            <td>1</td>
+          </tr>
+           <tr>
+            <td style="height:20px;">Obstacle</td>
+            <td>1</td>
+          </tr>
+
+          <tr>
+            <td style="height:20px;"> Direction</td>
+            <td>F</td>
+          </tr>
+          <tr>
+            <td style="height:20px;">Speed</td>
+            <td>5</td>
+          </tr>
+             <tr>
+            <td style="height:20px;">Lon</td>
+            <td>5</td>
+          </tr>
+          </tr>
+             <tr>
+            <td style="height:20px;">Lat</td>
+            <td>5</td>
+          </tr>
+              </tr>
+             <tr>
+            <td style="height:20px;">Bearing</td>
+            <td>5</td>
+          </tr>
+        </table>
+      </div>
+      <div align="bottom" style="position: absolute; bottom: 0; height:130px;width:130px">
+        <table align="bottom" style="width:130px height:130px" >
+         <caption>Robot Control</caption>
+          <tbody>
+            <tr>
+              <td></td>
+              <td>
+                <p class="auto-style1" >
+                <img alt="" src="img/forward.gif" height = "42" width = "42" accesskey="w" onclick="forward()"></p>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="auto-style1">
+              <img alt="" src="img/left.gif" height = "42" width = "42"  style="float: right" accesskey="A" onclick="left_turn()" ></td>
+              <td>
+                <p class="auto-style1">
+                  <img alt="" src="img/disabled.gif" accesskey="Q" height = "42" width = "42"  onclick="stop()">
+                </p>
+              </td>
+              <td><img alt="" src="img/right.gif" style="float: left" height = "42" width = "42"  accesskey="D" onclick="right_turn()"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <p class="auto-style1"><img alt="" src="img/backward.gif" height = "42" width = "42"  accesskey="S" onclick="backward()"></p>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+  <div overflow:auto>
+    
+  </div>
+</body>
+<script type="text/javascript">
+  // 百度地图API功能
+  lat = 31.2
+  lon = 121.6
+  var point = new BMap.Point(lon, lat);
+  init_map("allmap", point);
+  // add a marker for the ini point 
+  var marker = new BMap.Marker(point);  // 创建标注
+  map.addOverlay(marker);               // 将标注添加到地图中
+  var markerMenu=new BMap.ContextMenu();
+  markerMenu.addItem(new BMap.MenuItem('打开视频',openVideo.bind(marker)));
+  marker.addContextMenu(markerMenu);
+  marker.setPosition(point);
+  map.panTo(point);
+
+  // call back of handle of ros, update robot position on the map 
+  gps_listener.subscribe(function(message) {
+    console.log('Received message on ' + gps_listener.name + ': ' + message.data);
+    var [lonstr, latstr, bearingstr] = message.data.split(' ');
+    lon_new = parseFloat(lonstr);
+    lat_new = parseFloat(latstr)
+    if(lat_new == lat && lon_new == lon)
+            return;
+    bearing = parseFloat(bearingstr)
+    point = new BMap.Point(lon_new, lat_new);
+
+    console.log('Old 1: ' + lon + ': ' + lat);
+    console.log('New 2: ' + lon_new + ': ' + lat_new);
+
+    var polyline = new BMap.Polyline(
+      [new BMap.Point(lon, lat),new BMap.Point(lon_new, lat_new)],    
+      {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}    
+    ); 
+    map.addOverlay(polyline);
+    marker.setPosition(point);
+    map.panTo(point);
+    lat = lat_new
+    lon = lon_new
+  });
+</script>
+</html>
