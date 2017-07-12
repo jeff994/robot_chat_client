@@ -24,7 +24,7 @@ var peer = new Peer(my_id, {
 
     // Set highest debug level (log everything!)
     debug: 3,
-    host: '192.168.23.62',
+    host: '192.168.0.143',
     port: 9000,
     // Set a logging function:
     logFunction: function() {
