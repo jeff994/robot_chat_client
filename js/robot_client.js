@@ -79,25 +79,41 @@ $(function() {
 });
 
 function step1() {
-    // Get audio/video stream
     navigator.getUserMedia({
-        audio: true,
-        video: true
-    }, function(stream) {
-        // Set your video displays
-        $('#my-video').prop('src', URL.createObjectURL(stream));
-
-        window.localStream = stream;
-
-        step2();
-
-        // Save the video
-        saveVideoStream(stream);
-
-    }, function() {
-        $('#step1-error').show();
-    });
+            audio: false,
+            video: true
+        },
+        function(stream) {
+            var video = document.getElementById('my-video');
+            video.src = window.URL.createObjectURL(stream);
+            window.localStream = stream;
+            step2();
+            // saveVideoStream(stream);
+        },
+        function(err) {
+            console.log("The following error occurred: " + err.name);
+        }
+    );
 }
+// Get audio/video stream
+// navigator.getUserMedia({
+//    audio: true,
+//   video: true
+//}, function(stream) {
+// Set your video displays
+//   $('#my-video').prop('src', URL.createObjectURL(stream));
+
+//  window.localStream = stream;
+
+//step2();
+
+// Save the video
+// saveVideoStream(stream);
+
+//}, function() {
+//   $('#step1-error').show();
+// });
+//}
 
 function step2() {
     $('#step1, #step3').hide();
