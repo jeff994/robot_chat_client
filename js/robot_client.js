@@ -2,7 +2,7 @@ control_id = getUrlVars()["control_id"];
 my_id = getUrlVars()["robot_id"];
 
 if (typeof control_id == 'undefined')
-    control_id = "someid5";
+    control_id = "admin";
 if (typeof my_id == 'undefined')
     my_id = "someid4";
 
@@ -24,7 +24,7 @@ var peer = new Peer(my_id, {
 
     // Set highest debug level (log everything!)
     debug: 3,
-    host: '192.168.0.143',
+    host: '192.168.0.233',
     port: 9000,
     // Set a logging function:
     logFunction: function() {
@@ -88,7 +88,7 @@ function step1() {
             video.src = window.URL.createObjectURL(stream);
             window.localStream = stream;
             step2();
-            // saveVideoStream(stream);
+            saveVideoStream(stream);
         },
         function(err) {
             console.log("The following error occurred: " + err.name);
@@ -149,7 +149,9 @@ chat_listener.subscribe(function(message) {
     type = var1_obj.TYPE;
     action = var1_obj.ACTION;
     if (type == 1 && action == 1) {
-        var call = peer.call(control_id, window.localStream);
+	var calltoid = control_id + my_id;
+	console.log(calltoid); 
+        var call = peer.call(calltoid, window.localStream);
         step3(call);
     }
 });
@@ -177,7 +179,7 @@ function saveVideoStream(stream) {
 
         // Create request to send video to server
         function backupVideo(filename) {
-            var APIurl = 'http://192.168.23.62:8080/robotportal/main/saveRecording.do?server=ws://192.168.23.62:9090';
+            var APIurl = 'https://192.168.0.233:8443/robotportal/main/saveRecording.do?server=ws://192.168.0.244:9090';
             var formData = new FormData();
             formData.append("recording", blob, filename)
 
