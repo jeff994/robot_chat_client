@@ -15,7 +15,7 @@ function getUrlVars() {
 }
 
 // Compatibility shim
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mediaDevices.getUserMedia;
 
 // PeerJS object
 var peer = new Peer(my_id, {
@@ -36,6 +36,8 @@ var peer = new Peer(my_id, {
 
 peer.on('open', function() {
     $('#my-id').text(peer.id);
+	console.log("Peer is open");
+	//step1();
 });
 
 peer.on('close', function()
@@ -49,12 +51,14 @@ peer.on('close', function()
 peer.on('call', function(call) {
     // Answer the call automatically (instead of prompting user) for demo purposes
     call.answer(window.localStream);
+    console.log(call);
     step3(call);
 });
 
 peer.on('error', function(err) {
     //alert(err.message);
     // Return to step 2 if error occurs
+console.log("getting error");
     step1();
 });
 
@@ -82,20 +86,23 @@ $(function() {
     });
 
     // Get things started
+    console.log("Getting started") 
     step1();
 });
 
 function step1() {
-    navigator.getUserMedia({
-            audio: true,
-            video: true
-        },
+	console.log("Calling step 1");
+    var constraints = { audio: true, video: {mandatory:{ maxWidth: 320 ,maxHeight: 240} } };
+    navigator.getUserMedia(constraints,
         function(stream) {
             var video = document.getElementById('my-video');
             video.src = window.URL.createObjectURL(stream);
             window.localStream = stream;
             step2();
-            saveVideoStream(stream);
+	    var url = "https://" + location.host + ":8443/robotportal/main/saveRecording.do?server=wss://192.168.0.247:9090";
+	    console.log(url); 
+		
+            //saveVideoStream(stream);
         },
         function(err) {
             console.log("The following error occurred: " + err.name);
@@ -142,14 +149,14 @@ function step3(call) {
     window.existingCall = call;
     $('#their-id').text(call.peer);
     call.on('close', step1);
-    $('#step1, #step2').hide();
+    //$('#step1, #step2').hide();
     $('#step3').show();
 }
 
 
 chat_listener.subscribe(function(message) {
     var str = message.data;
-    //console.log(str); 
+    console.log(str); 
     var var1_obj = JSON.parse(str);
     console.log(var1_obj)
         //insertText("IsEanble", var1_obj.parameters.ENABLE)
@@ -186,7 +193,9 @@ function saveVideoStream(stream) {
 
         // Create request to send video to server
         function backupVideo(filename) {
-            var APIurl = 'https://192.168.0.233:8443/robotportal/main/saveRecording.do?server=wss://192.168.0.244:9090';
+	    var url = "https://" + location.host + ":8443/robotportal/main/saveRecording.do?server=wss://192.168.0.247:9090";
+
+            var APIurl = 'https://192.168.0.233:8443/robotportal/main/saveRecording.do?server=wss://192.168.0.247:9090';
             var formData = new FormData();
             formData.append("recording", blob, filename)
 
