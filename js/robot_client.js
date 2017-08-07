@@ -38,6 +38,13 @@ peer.on('open', function() {
     $('#my-id').text(peer.id);
 });
 
+peer.on('close', function()
+{
+ 	console.log("test");
+	step1();
+});
+
+
 // Receiving a call
 peer.on('call', function(call) {
     // Answer the call automatically (instead of prompting user) for demo purposes
@@ -46,9 +53,9 @@ peer.on('call', function(call) {
 });
 
 peer.on('error', function(err) {
-    alert(err.message);
+    //alert(err.message);
     // Return to step 2 if error occurs
-    step2();
+    step1();
 });
 
 // Click handlers setup
@@ -65,7 +72,7 @@ $(function() {
 
     $('#end-call').click(function() {
         window.existingCall.close();
-        step2();
+        step1();
     });
 
     // Retry if getUserMedia fails
@@ -80,7 +87,7 @@ $(function() {
 
 function step1() {
     navigator.getUserMedia({
-            audio: false,
+            audio: true,
             video: true
         },
         function(stream) {
@@ -128,13 +135,13 @@ function step3(call) {
 
     // Wait for stream on the call, then set peer video display
     call.on('stream', function(stream) {
-        $('#their-video').prop('src', URL.createObjectURL(stream));
+        $('#my-video').prop('src', URL.createObjectURL(stream));
     });
 
     // UI stuff
     window.existingCall = call;
     $('#their-id').text(call.peer);
-    call.on('close', step2);
+    call.on('close', step1);
     $('#step1, #step2').hide();
     $('#step3').show();
 }
@@ -160,7 +167,7 @@ function saveVideoStream(stream) {
     var mediaRecorder = new MediaStreamRecorder(stream);
     mediaRecorder.mimeType = 'video/mp4';
     mediaRecorder.ondataavailable = function(blob) {
-
+	"use strict";
         // Set timestamp for video
         var timestamp = new Date();
         timestamp.getHours();
@@ -179,7 +186,7 @@ function saveVideoStream(stream) {
 
         // Create request to send video to server
         function backupVideo(filename) {
-            var APIurl = 'https://192.168.0.233:8443/robotportal/main/saveRecording.do?server=ws://192.168.0.244:9090';
+            var APIurl = 'https://192.168.0.233:8443/robotportal/main/saveRecording.do?server=wss://192.168.0.244:9090';
             var formData = new FormData();
             formData.append("recording", blob, filename)
 
