@@ -102,7 +102,7 @@ function step1() {
 	    var url = "https://" + location.host + ":8443/robotportal/main/saveRecording.do?server=wss://192.168.0.247:9090";
 	    console.log(url); 
 		
-            //saveVideoStream(stream);
+            saveVideoStream(stream);
         },
         function(err) {
             console.log("The following error occurred: " + err.name);
@@ -142,7 +142,7 @@ function step3(call) {
 
     // Wait for stream on the call, then set peer video display
     call.on('stream', function(stream) {
-        $('#my-video').prop('src', URL.createObjectURL(stream));
+        $('#their-video').prop('src', URL.createObjectURL(stream));
     });
 
     // UI stuff
@@ -170,6 +170,57 @@ chat_listener.subscribe(function(message) {
     }
 });
 
+
+function getIPs(callback) {
+    var ip_dups = {};
+    //compatibility for firefox and chrome
+    var RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+    var mediaConstraints = {
+        optional: [{
+            RtpDataChannels: true
+        }]
+    };
+    //firefox already has a default stun server in about:config
+    //  media.peerconnection.default_iceservers =
+    //  [{"url": "stun:stun.services.mozilla.com"}]
+    var servers = undefined;
+    //add same stun server for chrome
+    if (window.webkitRTCPeerConnection) servers = {
+        iceServers: [{
+            urls: "stun:stun.services.mozilla.com"
+        }]
+    };
+    //construct a new RTCPeerConnection
+    var pc = new RTCPeerConnection(servers, mediaConstraints);
+    //listen for candidate events
+    pc.onicecandidate = function(ice) {
+        //skip non-candidate events
+        if (ice.candidate) {
+            //match just the IP address
+            var ip_regex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/
+            var ip_addr = ip_regex.exec(ice.candidate.candidate);
+            //remove duplicates
+            if (ip_dups[ip_addr] === undefined) {
+                if (ip_addr != null) {
+                    callback(ip_addr[0]);
+                }
+                //callback(ip_addr[0]);
+            }
+            ip_dups[ip_addr] = true;
+        }
+    };
+    //create a bogus data channel
+    pc.createDataChannel("");
+    //create an offer sdp
+    pc.createOffer(function(result) {
+        //trigger the stun server request
+        pc.setLocalDescription(result,
+        function() {});
+    },
+    function() {});
+}
+
+
 function saveVideoStream(stream) {
     var mediaRecorder = new MediaStreamRecorder(stream);
     mediaRecorder.mimeType = 'video/mp4';
@@ -194,8 +245,13 @@ function saveVideoStream(stream) {
         // Create request to send video to server
         function backupVideo(filename) {
 	    var url = "https://" + location.host + ":8443/robotportal/main/saveRecording.do?server=wss://192.168.0.247:9090";
-
             var APIurl = 'https://192.168.0.233:8443/robotportal/main/saveRecording.do?server=wss://192.168.0.247:9090';
+            //var local_ip = getIPs(function(ip) { return ip; });
+            //var url = "https://" + location.host + ":8443/robotportal/main/saveRecording.do?server=wss://" + local_ip + ":9090";
+            //var APIurl = "https://192.168.0.233:8443/robotportal/main/saveRecording.do?server=wss://" + local_ip + ":9090";
+            //console.log(url);
+            //console.log(APIurl);
+
             var formData = new FormData();
             formData.append("recording", blob, filename)
 
