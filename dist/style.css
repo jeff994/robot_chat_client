@@ -11,6 +11,14 @@
 	width: 320px;
 }
 
-/*#video-container div.row {
-	text-align: center;
-}*/
+#callto-id {
+	display: none;
+}
+
+#step2 {
+	/*border: 2px solid red;*/
+}
+
+#step3 {
+	/*border: 2px solid blue;*/
+}

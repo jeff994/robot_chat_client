@@ -10,8 +10,8 @@
   <script type="text/javascript" src="js/robot_client.js"></script>
   <script type="text/javascript" src="js/MediaStreamRecorder.js"> </script>
   <script type="text/javascript" src="dist/bootstrap.min.js"></script>
-  <!-- <link rel="stylesheet" href="dist/bootstrap.min.css" type="text/css" /> -->
-  <link rel="stylesheet" href="dist/bootstrap-responsive.min.css" type="text/css" />
+  <link rel="stylesheet" href="dist/bootstrap.min.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="dist/bootstrap-responsive.min.css" type="text/css" /> -->
   <link rel="stylesheet" href="dist/style.css" type="text/css" />
 </head>
 <body>
@@ -25,32 +25,40 @@
       </div>
 
       <!-- Steps -->
-      <div class="row">
+      <!-- <div class="row">
           <h2>Video chat</h2>
-          <!-- Get local audio/video stream -->
-          <div id="step1" class="col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2">
+          <div id="step1">
             <p>Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</p>
             <div id="step1-error">
               <p>Failed to access the webcam and microphone. Make sure to run this demo on an http server and click allow when asked for permission by the browser.</p>
               <a href="#" class="pure-button pure-button-error" id="step1-retry">Try again</a>
             </div>
           </div>
+      </div> -->
 
+      <div class="row">
           <!-- Make calls to others -->
-          <div id="step2">
-            <p>Your id: <span id="my-id">someid4</span></p>
-            <p>Share this id with others so they can call you.</p>
-            <h3>Make a call</h3>
+          <div id="step2" class="col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1 col-xs-4 col-xs-offset-1 well">
+            <h4>Make Call</h4>
+            <p>Your id is </p>
+            <p id="my-id">someid4</p>
+            <!-- <p>Share this id with others so they can call you.</p> -->
             <div class="pure-form">
               <input type="text" placeholder="Call user id..." id="callto-id">
-              <a href="#" class="pure-button pure-button-success" id="make-call">Call</a>
+              <!-- <a href="#" class="btn btn-primary" id="make-call">Call</a> -->
+              <button class="btn btn-success" id="make-call">Make Call</button>
             </div>
           </div>
 
           <!-- Call in progress -->
-          <div id="step3">
-            <p>Currently in call with <span id="their-id">...</span></p>
-            <p><a href="#" class="pure-button pure-button-error" id="end-call">End call</a></p>
+          <div id="step3" class="col-md-4 col-md-offset-1 col-sm-4 col-sm-offset-1 col-xs-4 col-xs-offset-1 well">
+            <h4>End Call</h4>
+            <p>Now in call with </p>
+            <p id="their-id">...</p>
+            <div>
+            <!-- <a href="#" class="pure-button pure-button-error" id="end-call">End call</a> -->
+            <btn class="btn btn-danger" id="end-call">End call</a>
+            </div>
           </div>
       </div>
   </div>
