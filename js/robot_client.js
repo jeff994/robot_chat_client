@@ -135,7 +135,9 @@ function step1() {
 //}
 
 function step2() {
-    $('#step1, #step3').hide();
+    // $('#step1, #step3').hide();
+    $('#step1').hide();
+    $('#end-call').addClass("disabled");
     $('#step2').show();
 }
 
@@ -155,7 +157,8 @@ function step3(call) {
     $('#their-id').text(call.peer);
     call.on('close', step1);
     //$('#step1, #step2').hide();
-    $('#step3').show();
+    //$('#step3').show();
+    $('#end-call').removeClass("disabled");
 }
 
 
