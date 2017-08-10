@@ -68,7 +68,12 @@ $(function() {
         // Initiate a call!
         console.log("testing1");
         console.log($('#callto-id').val());
-        var call = peer.call($('#callto-id').val(), window.localStream);
+        if ($('#my-id').text() == "someid4") {
+            return;
+        }
+        // var call = peer.call($('#callto-id').val(), window.localStream);
+        var callid = "admin" + $('#my-id').text();
+        var call = peer.call(callid, window.localStream);
         console.log("test4")
         step3(call);
         console.log("test5")
