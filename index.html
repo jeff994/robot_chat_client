@@ -15,17 +15,30 @@
   <link rel="stylesheet" href="dist/style.css" type="text/css" />
 </head>
 <body>
-  <div class="container">
+  <div class="container-fluid">
       <!-- Video area -->
       <div class="row">
-        <div id="video-container" class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            <p id="my-id">someid4</p>
+            <btn class="btn btn-success" id="make-call">
+              <span class="glyphicon glyphicon-earphone"></span>
+            </btn>
+        </div>
+        <div id="video-container" class="col-md-8 col-sm-8 col-xs-8">
             <!-- <video id="their-video" autoplay></video> -->
             <video id="my-video" muted="true" autoplay></video>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            <p id="their-id">...</p>
+            <btn class="btn btn-danger" id="end-call">
+              <span class="glyphicon glyphicon-remove"></span>
+            </btn>
         </div>
       </div>
 
       <!-- Steps -->
       <div class="row">
+          
           <div id="step1" class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 alert alert-warning">
             <h4>Video chat</h4>
             <p>Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</p>

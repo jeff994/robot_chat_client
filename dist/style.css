@@ -4,9 +4,26 @@
 
 #video-container {
 	text-align: center;
+	border: 1px solid red;
 }
 
 #my-video {
 	margin: 0 auto;
 	width: 320px;
+}
+
+#make-call {
+	margin-top: 30px;
+}
+
+#end-call {
+	margin-top: 30px;
+}
+
+#my-id {
+	margin-top: 50px;
+}
+
+#their-id {
+	margin-top: 50px;
 }

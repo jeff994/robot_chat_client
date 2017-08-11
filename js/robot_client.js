@@ -139,6 +139,7 @@ function step2() {
     $('#step1').hide();
     $('#end-call').addClass("disabled");
     $('#step2').show();
+    $('#make-call').removeClass("disabled");
 }
 
 function step3(call) {
