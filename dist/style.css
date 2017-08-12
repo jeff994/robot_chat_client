@@ -4,7 +4,7 @@
 
 #video-container {
 	text-align: center;
-	border: 1px solid red;
+	margin: 0;
 }
 
 #my-video {
