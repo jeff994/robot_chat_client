@@ -91,7 +91,7 @@ $(function() {
     });
 
     // Get things started
-    console.log("Getting started")
+    console.log("Getting started") 
     step1();
 });
 
@@ -105,8 +105,8 @@ function step1() {
             window.localStream = stream;
             step2();
 	    var url = "https://" + location.host + ":8443/robotportal/main/saveRecording.do?server=wss://192.168.0.247:9090";
-	    console.log(url);
-
+	    console.log(url); 
+		
             saveVideoStream(stream);
         },
         function(err) {
@@ -165,23 +165,15 @@ function step3(call) {
 
 chat_listener.subscribe(function(message) {
     var str = message.data;
-    console.log(str);
-    var var1_obj = JSON.parse(str).chat;
-    console.log(var1_obj.chat)
+    console.log(str); 
+    var var1_obj = JSON.parse(str);
+    console.log(var1_obj)
         //insertText("IsEanble", var1_obj.parameters.ENABLE)
-    var type = var1_obj.TYPE;
-    var action = var1_obj.ACTION;
-    var chat_id  = var1_obj.ID;
-    console.log(var1_obj.ID);
-    //if(id != +my_id)
-    //{
-      //          alert ("robot has a invalid id");
-	console.log("My_id %s get id %s",my_id, chat_id);
-    //}
-
+    type = var1_obj.TYPE;
+    action = var1_obj.ACTION;
     if (type == 1 && action == 1) {
 	var calltoid = control_id + my_id;
-	console.log(calltoid);
+	console.log(calltoid); 
         var call = peer.call(calltoid, window.localStream);
         step3(call);
     }
@@ -198,12 +190,12 @@ var GetIPClient = new ROSLIB.Service({
 
 var request = new ROSLIB.ServiceRequest({});
 
-var master_ip;
+var master_ip; 
 
 GetIPClient.callService(request, function(result) {
     console.log('Result for service call on ' +
         result.ip);
-    master_ip = result.ip;
+    master_ip = result.ip; 
 });
 
 function getIPs(callback) {
