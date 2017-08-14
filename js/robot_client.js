@@ -6,6 +6,9 @@ if (typeof control_id == 'undefined')
 if (typeof my_id == 'undefined')
     my_id = "someid4";
 
+//alert(my_id);
+//$('#my-id').text(my_id);
+
 function getUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
@@ -35,7 +38,9 @@ var peer = new Peer(my_id, {
 
 
 peer.on('open', function() {
-    $('#my-id').text(peer.id);
+	//alert(peer.id);
+	console.log(peer.id);
+    	$('#my-id').text(peer.id);
 	console.log("Peer is open");
 	//step1();
 });
@@ -56,9 +61,9 @@ peer.on('call', function(call) {
 });
 
 peer.on('error', function(err) {
-    //alert(err.message);
+    alert(err.message);
     // Return to step 2 if error occurs
-console.log("getting error");
+	console.log("getting error");
     step1();
 });
 
@@ -97,8 +102,8 @@ $(function() {
 
 function step1() {
 	console.log("Calling step 1");
-    var constraints = { audio: true, video: {mandatory:{ maxWidth: 320 ,maxHeight: 240} } };
-    navigator.getUserMedia(constraints,
+    	var constraints = { audio: true, video: {mandatory:{ maxWidth: 320 ,maxHeight: 240} } };
+    	navigator.getUserMedia(constraints,
         function(stream) {
             var video = document.getElementById('my-video');
             video.src = window.URL.createObjectURL(stream);
