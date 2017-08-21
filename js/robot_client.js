@@ -176,13 +176,14 @@ chat_listener.subscribe(function(message) {
         //insertText("IsEanble", var1_obj.parameters.ENABLE)
     var type = var1_obj.TYPE;
     var action = var1_obj.ACTION;
-    var chat_id  = var1_obj.ID;
-    var client_id = var_obj.CLIENT;
+    var chat_id  	= var1_obj.ID;
+    var client_id 	= var1_obj.CLIENT;
+
     console.log(var1_obj.ID);
     //if(id != +my_id)
     //{
       //          alert ("robot has a invalid id");
-	console.log("My_id %s get id %s",my_id, chat_id);
+	console.log("My_id %s get id %s",my_id, client_id);
     //}
 
     if (type == 1 && action == 1) {
