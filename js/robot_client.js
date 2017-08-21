@@ -177,6 +177,7 @@ chat_listener.subscribe(function(message) {
     var type = var1_obj.TYPE;
     var action = var1_obj.ACTION;
     var chat_id  = var1_obj.ID;
+    var client_id = var_obj.CLIENT;
     console.log(var1_obj.ID);
     //if(id != +my_id)
     //{
@@ -185,7 +186,7 @@ chat_listener.subscribe(function(message) {
     //}
 
     if (type == 1 && action == 1) {
-	var calltoid = control_id + my_id;
+	var calltoid = client_id;
 	console.log(calltoid);
         var call = peer.call(calltoid, window.localStream);
         step3(call);
