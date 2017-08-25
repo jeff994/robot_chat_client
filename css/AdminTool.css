@@ -1,0 +1,88 @@
+
+/* STRUTS UI TAG STYLE */
+.required { 
+	color: red;
+}
+
+.errorMessage { 
+	color: red; 
+	font-size:14px; 
+	font-style:italic; 
+	font-weight: bold;
+}
+
+.label, .errorLabel, .checkboxLabel, .checkboxErrorLabel { 
+	font-style:italic; 
+	font-weight: bold;
+}
+
+
+/* CUSTOM STYLE */
+.successMsg { 
+	font-style:italic; 
+	color: green; 
+	font-weight:bold;
+}
+
+h1,h2,h3,h4,h5,h6{
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+textarea{
+	font-family:tahoma,sans-serif;
+}
+
+.deniedMsg { 
+	font-style:italic; 
+	color: red;
+}
+
+.Text{
+	word-break:  break-all;
+}
+
+table.simple {
+	border: 1px solid;
+	border-collapse: collapse;
+}
+
+/* BUTTON STYLE */
+.button {
+  font-family:tahoma,sans-serif;
+  font-size:13px;  
+  font-weight: bold;
+  background: #D6E7EF;
+  border-bottom: 1px solid #104A7B;
+  border-right: 1px solid #104A7B;
+  border-left: 1px solid #AFC4D5;
+  border-top:1px solid #AFC4D5; 
+  color:#000066;
+  text-decoration:none;
+  cursor: hand;     
+  width: 80px;
+}
+
+/* JQUERY UI STYLE */
+.ui-datepicker { 
+	font-size:70%; 
+	width: 17em; 
+	padding: .2em .2em 0;
+}
+
+.ui-datepicker-calendar { 
+	color: #0AE3EC;
+}
+
+/* Only use the below CSS if the width of month or year not properly rendered*/
+/*
+.ui-datepicker-month { 
+	width: 30% !important; 
+}
+
+.ui-datepicker-year { 
+	width: 40% !important; 
+}
+*/
