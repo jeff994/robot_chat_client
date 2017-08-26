@@ -1,25 +1,9 @@
-function drawRouteLoop(routes) {
-	if (selectedRobot.overlayRoute == undefined) {
-		selectedRobot.overlayRoute = new BMap.Polyline(routes, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5});
-	} else {
-		if (routes.length >= 3) {
-			routes.push(routes[0])
-			selectedRobot.overlayRoute.setPath(routes);
-			routes.pop();
-		} else {
-			selectedRobot.overlayRoute.setPath(routes);
-		}
-	}
-	map.addOverlay(selectedRobot.overlayRoute);
-}
-
-function drawInitRouteLink(basePoint, routeStartPoint) {
-	console.log(basePoint);
-	console.log(routeStartPoint);
-	if(selectedRobot.overlayInit == undefined) {
-		selectedRobot.overlayInit = new BMap.Polyline([basePoint, routeStartPoint], {strokeColor:"red", strokeWeight:3, strokeOpacity:0.5});
-	} else {
-		selectedRobot.overlayInit.setPath([basePoint, routeStartPoint]);
-	}
-	map.addOverlay(selectedRobot.overlayInit);
+function init_map(div_name, init_point)
+{
+    // create a map for div 'allmap'
+    map = new BMap.Map(div_name);
+    // Add some scale control and navigation control for baidu map 
+    map.addControl(new BMap.ScaleControl());  
+    map.addControl(new BMap.NavigationControl());  
+    map.centerAndZoom(init_point, 19);     
 }
